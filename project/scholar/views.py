@@ -8,8 +8,10 @@ from django.contrib import messages
 def home(request):
     return render(request, 'scholar/homepage.html')
 
-
-def dashboard(request):
+def institute_login(request):
+    ...
+    
+def institute_dashboard(request):
 
     current_user = request.user
     institute = Institute.objects.get(user=current_user)
@@ -19,6 +21,16 @@ def dashboard(request):
 
     context = {'student_applications': student_applications}
     return render(request, 'scholar/institute_dashboard.html')
+  
+def state_login(request):
+    ...
+    
+def state_dashboard(request):
+    ...  
+    
+# def 
+
+
 
 def view_details(request, student_id):
     student = get_object_or_404(Student, id=student_id)
