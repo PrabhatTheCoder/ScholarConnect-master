@@ -45,7 +45,3 @@ admin.site.register(CustomUser, BaseUserAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Institute, InstituteAdmin)
 admin.site.register(StateAuthority, StateAuthorityAdmin)
-
-
-
-

@@ -1,18 +1,31 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from scholar.models import Docs
 
 from users.models import Student,Institute,StateAuthority
 from django.contrib import messages
 
 
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'scholar/homepage.html')
 
 
 def dashboard(request):
-    return render(request, 'users/dashboard.html')
 
-# def 
+    current_user = request.user
+    institute = Institute.objects.get(user=current_user)
 
+    # Get all student applications associated with the current institute
+    student_applications = Student.objects.filter(institute=institute)
+
+    context = {'student_applications': student_applications}
+    return render(request, 'scholar/institute_dashboard.html')
+
+def view_details(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+    docs = Docs.objects.get(student=student)
+    
+    context = {'student': student, 'docs': docs}
+    return render(request, 'view_details.html', context)
 
 
 def Scholar_application(request):

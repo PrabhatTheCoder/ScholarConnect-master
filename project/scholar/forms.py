@@ -27,3 +27,15 @@ class UserDocsForm(forms.ModelForm):
             'fee_receipt': 'Fee Receipt',
             'passbook': 'Passbook',
         }
+        
+        required = {
+            'applicant_photo': True,
+            'domicile_certificate': True,
+            'income_certificate': True,
+            'caste_certificate' : True,
+            'aadhar_card': True,
+            'bonafide': True,
+            'fee_receipt': True,
+            'passbook': True,
+            
+        }
