@@ -2,8 +2,35 @@ from django import forms
 
 from scholar.models import Docs
 from django import forms
+from users.models import Institute, Student
+       
+class InstituteForm(forms.ModelForm):
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    class Meta:
+        model = Institute
+        fields = ['username', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
+        labels = {
+            'username': 'Username',
+            'password': 'Password',
+        }
+        required = {
+            'username': True,
+            'password': True,
+            'password2': True,
+        }
 
-
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password2 = cleaned_data.get("password2")
+        if password != password2:
+            raise forms.ValidationError(
+                "Passwords do not match"
+            )
+        
 class UserDocsForm(forms.ModelForm):
     class Meta:
         model = Docs
@@ -39,3 +66,5 @@ class UserDocsForm(forms.ModelForm):
             'passbook': True,
             
         }
+        
+        

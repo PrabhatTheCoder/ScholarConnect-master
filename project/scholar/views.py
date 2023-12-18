@@ -1,5 +1,12 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from multiprocessing import AuthenticationError
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, redirect, reverse
 from scholar.models import Docs
+
+from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+
 
 from users.models import Student,Institute,StateAuthority
 from django.contrib import messages
@@ -8,7 +15,54 @@ from django.contrib import messages
 def home(request):
     return render(request, 'scholar/homepage.html')
 
+            
 def institute_login(request):
+    # data = request.POST
+    # if request.method == "POST":
+    #     username = data.get('username')
+    #     password = data.get('password')
+        
+    #     if not User.objects.filter(username = username).exists():
+    #         messages.info(request, "Invalid Username!!")
+    #         return redirect('/login')
+        
+    #     user = authenticate(username = username, password = password)
+        
+    #     if user is not None:
+    #         login(request, user)
+    #         return redirect('/receipe')
+            
+    #     else:
+    #         messages.error(request, 'Invalid Password!!')
+    #         return redirect('/login')
+    # return render(request, 'login.html')
+
+
+    if request.method == 'POST':
+        form = AuthenticationError(request, data=request.POST)
+        if form.is_valid():
+            print('working')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            print('working')
+            if user is not None:
+                login(request, user)
+                print('login working')
+                print(user.user_type)
+                if user.user_type == 1:
+                    print(' Institute logged in')
+                    return HttpResponseRedirect(reverse('scholar:dashboard'))
+
+            else:
+                messages.error(request, 'Invalid username or password.')
+
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'institute_login.html', {'form': form})
+    
+def institute_logout(request):
     ...
     
 def institute_dashboard(request):
@@ -28,9 +82,8 @@ def state_login(request):
 def state_dashboard(request):
     ...  
     
-# def 
-
-
+def state_logout(request):
+    ...
 
 def view_details(request, student_id):
     student = get_object_or_404(Student, id=student_id)

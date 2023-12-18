@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-
+from django.contrib.auth.models import Group
 from .models import *
 # Create your views here.
 
@@ -26,6 +26,9 @@ def register_student(request):
             user.user_type = 1  # Assuming 1 represents the "Student" user type
             user.password = make_password(user_form.cleaned_data['password'])  # Manually hash the password
             user.save()
+
+            student_group = Group.objects.get(name='Student')
+            user.groups.add(student_group)
 
             # Save the student form with the user instance
             student = student_form.save(commit=False)

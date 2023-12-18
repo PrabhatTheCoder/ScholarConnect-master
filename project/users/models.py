@@ -1,6 +1,7 @@
 
 
-
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager,Group
 
@@ -131,3 +132,18 @@ models.signals.post_migrate.connect(create_groups, sender=models)
 # Disconnect the create_groups function after the initial migration
 models.signals.post_migrate.disconnect(create_groups, sender=models)
 
+
+@receiver(post_save, sender=CustomUser)
+def create_groups(sender, instance, created, **kwargs):
+    if created:
+        if instance.user_type == 1:  # Student
+            group, _ = Group.objects.get_or_create(name='Student')
+            instance.groups.add(group)
+        elif instance.user_type == 2:  # Institute
+            Institute.objects.create(user=instance)
+            group, _ = Group.objects.get_or_create(name='Institute')
+            instance.groups.add(group)
+        elif instance.user_type == 3:  # StateAuthority
+            StateAuthority.objects.create(user=instance)
+            group, _ = Group.objects.get_or_create(name='StateAuthority')
+            instance.groups.add(group)
