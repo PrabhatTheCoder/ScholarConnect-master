@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Application</title>
-    <script src="application_script.js"></script>
-    <link rel="stylesheet" href="application_style.css">
-    
-  </head> 
-  <body>
-    <div>
-      <header>
-          <img id="logo_left" src="logo.png" alt="Logo" />
-          <img id="logo_right" src="mortar_head.jpeg" alt="Logo" />
-      </header>
-  
-      <div class="red-bar"></div>
-    </div>
 
+{% extends "base.html" %}
+{% load static %}
+{% comment %} {% load static %} {% endcomment %}
+{% block start %}
+<head>
+    <link rel="stylesheet" href="{% static 'scholar_application.css' %}">
+</head>
     <div>
       <div class="form-container">
-        <form>
+        <form method="POST">
+          {% csrf_token %}
           <fieldset class="FS">
           <div class="container">
             <legend class="legend_c"> <span class="heading"> SCHOLARSHIP DETAILS </span> </legend>
@@ -39,16 +28,21 @@
           </div>
           </fieldset>
           <br>
-
+        </body>
+        </html>
           <fieldset class="FS">
           <div class="container">
             <legend class="legend_c"><span class="heading"> PERSONAL DETAILS </span></legend>
             <br>
+
+            <label for="applicant_name">Applicant Name:<span id="required">*</span></label>
+            <input type="text" id="input2" name="applicant_name" id="textInput" oninput="handleInput(this)" required />
+
             <label for="dob">Date of Birth:<span id="required">*</span></label>
             <input type="date" id="input1" name="dob" required />
 
             <label for="father_name">Father Name:<span id="required">*</span></label>
-            <input type="father_name" id="input2" name="father_name" id="textInput" oninput="handleInput(this)" required />
+            <input type="text" id="input2" name="father_name" id="textInput" oninput="handleInput(this)" required />
 
             <label for="Mother Name">Mother Name:<span id="required">*</span></label>
             <input type="text" id="input3" name="mother_name" id="textInput" oninput="handleInput(this)" required />
@@ -209,5 +203,4 @@
         </form>
       </div>
     </div>
-    </body>
-    </html>
+    {% endblock start %}

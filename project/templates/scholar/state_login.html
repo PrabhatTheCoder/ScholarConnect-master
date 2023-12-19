@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block start %}
+{% load static %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'stud_login.css' %}">
+</head>
+
+
+<section class="bg-gray-50  bg-gradient-to-t from-green-300 via-transparent to-orange-300">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+     
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      {% if message.tags %}{{ message }}{% endif %}
+    </div> 
+    {% endfor %}
+    {% endif %}
+
+
+    <div class="login-box">
+        <div class="box-title">State Login</div>
+        <form id="loginForm" onsubmit="return validateForm()" method="POST" action="#">
+          {% csrf_token %}
+            <label for="username">State Code</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <p> <a href="#">Forgot Password</a> </p>
+
+            <button type="submit">Login</button>
+        </form>
+   
+   
+
+
+</div>
+{% endblock start %}

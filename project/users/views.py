@@ -35,13 +35,13 @@ def register_student(request):
             student.user = user
             student.save()
 
-            return HttpResponseRedirect(reverse("users:registration_success"))
+            return HttpResponseRedirect(reverse("users:student_login"))
 
     else:
         user_form = CustomUserForm()
         student_form = StudentForm()
 
-    return render(request, 'users/register.html', {'user_form': user_form, 'student_form': student_form})
+    return render(request, 'users/student_registeration.html', {'user_form': user_form, 'student_form': student_form})
 
 
 
@@ -53,29 +53,28 @@ def registration_success(request):
 
         
 def student_login(request):
+    data = request.POST
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            print('working')
-            aadhaar = form.cleaned_data.get('aadhaar')
-            password = form.cleaned_data.get('password')
-            print(aadhaar,"sfjaisfh", password)
-            user = authenticate(request, username = aadhaar, password=password)
-            print('working')
-            if user is not None:
-                login(request, user)
-                print('login working')
-                print(user.user_type)
-                if user.user_type == 1:
-                    print(' a student logged in')
-                    return HttpResponseRedirect(reverse('scholar:dashboard'))
-            else:
-                messages.error(request, 'Invalid Aadhaar or password.')
+        username = data.get('aadhaar')
+        password = data.get('password')
 
-    else:
-        form = AuthenticationForm()
+        print(username,"sfjaisfh", password)
+        user = authenticate(request, username = username, password=password)
+        print('working')
+        if user is not None:
+            login(request, user)
+            print('login working')
+            print(user.user_type)
+            if user.user_type == 1:
+                print(' a student logged in')
+                return HttpResponseRedirect(reverse('scholar:student_dashboard'))
+        else:
+            logout(request)
+            messages.error(request, 'Invalid Aadhaar or password.')
 
-    return render(request, 'users/user_login.html', {'form': form})
+    
+
+    return render(request, 'users/user_login.html')
 
 
 def student_logout(request):

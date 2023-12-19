@@ -43,11 +43,19 @@ class ApplicationStatus(models.Model):
     state_authority = models.ForeignKey(StateAuthority, on_delete=models.CASCADE, null=True, blank=True)
     
     # Add fields to track the status at each level
+    application_submitted = models.BooleanField(default=False)
     institute_approval = models.BooleanField(default=False)
     state_approval = models.BooleanField(default=False)
     final_approval = models.BooleanField(default=False)
     
     # Additional fields for comments, timestamps, etc., can be added based on requirements
+        # Remarks at each level
+    institute_remarks = models.TextField(null=True, blank=True)
+    state_authority_remarks = models.TextField(null=True, blank=True)
+
+    # Timestamps for each level
+    institute_verification_time = models.DateTimeField(null=True, blank=True)
+    state_authority_verification_time = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
         return f"Application Status for {self.student}"

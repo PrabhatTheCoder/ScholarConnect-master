@@ -1,0 +1,140 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block start %}
+
+
+<head>
+    <link rel="stylesheet" href="{% static 'scholar_application2.css' %}">
+</head>
+
+<div class="header">
+    <h1><u>UPLOAD REQUIRED DOCUMENTS</u></h1>
+</div>
+
+
+
+<table>
+<tr>
+<th>SNO.</th>
+<th>Documents Type</th> 
+<th>Uploaded / Not Uploaded</th>
+<th>Action</th>
+<th>Document Name</th>
+</tr>
+<!-- Row 1 -->
+<tr>
+<td>1</td>
+<td>Disability Certificate issued by the competent authority</td>
+<td id="status1">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)">
+  <button onclick="document.getElementById('fileInput1').click()">Upload</button>
+</td>
+<td id="fileName1"></td>
+</tr>
+<!-- Row 2 -->
+<tr>
+<td>2</td>
+<td>Document Type 2</td>
+<td id="status2">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput2" style="display: none;" onchange="uploadFile(2)">
+  <button onclick="document.getElementById('fileInput2').click()">Upload</button>
+</td>
+<td id="fileName2"></td>
+</tr>
+
+<!-- Row 3 -->
+<tr>
+<td>3</td>
+<td>Document Type 3</td>
+<td id="status2">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput3" style="display: none;" onchange="uploadFile(3)">
+  <button onclick="document.getElementById('fileInput3').click()">Upload</button>
+</td>
+<td id="fileName3"></td>
+</tr>
+
+<!-- Row 4 -->
+<tr>
+<td>4</td>
+<td>Document Type 4</td>
+<td id="status2">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput4" style="display: none;" onchange="uploadFile(2)">
+  <button onclick="document.getElementById('fileInput4').click()">Upload</button>
+</td>
+<td id="fileName4"></td>
+</tr>
+
+<!-- Row 5 -->
+<tr>
+<td>5</td>
+<td>Document Type 5</td>
+<td id="status5">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput5" style="display: none;" onchange="uploadFile(5)">
+  <button onclick="document.getElementById('fileInput5').click()">Upload</button>
+</td>
+<td id="fileName5"></td>
+</tr>
+
+<!-- Row 6 -->
+<tr>
+<td>6</td>
+<td>Document Type 6</td>
+<td id="status6">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput6" style="display: none;" onchange="uploadFile(6)">
+  <button onclick="document.getElementById('fileInput6').click()">Upload</button>
+</td>
+<td id="fileName6"></td>
+</tr>
+
+<!-- Row 7 -->
+<tr>
+<td>7</td>
+<td>Document Type 7</td>
+<td id="status7">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput7" style="display: none;" onchange="uploadFile(7)">
+  <button onclick="document.getElementById('fileInput7').click()">Upload</button>
+</td>
+<td id="fileName7"></td>
+</tr>
+
+<!-- Row 8 -->
+<tr>
+<td>8</td>
+<td>Document Type 8</td>
+<td id="status8">Not Uploaded</td>
+<td>
+  <input type="file" id="fileInput8" style="display: none;" onchange="uploadFile(8)">
+  <button onclick="document.getElementById('fileInput8').click()">Upload</button>
+</td>
+<td id="fileName8"></td>
+</tr>
+</table>
+
+    <button id="submit">FINAL SUBMIT</button>
+</div>
+
+<script>
+function uploadFile(row) {
+var input = document.getElementById('fileInput' + row);
+var status = document.getElementById('status' + row);
+var fileName = document.getElementById('fileName' + row);
+
+if (input.files.length > 0) {
+  var file = input.files[0];
+  status.innerText = 'Uploaded';
+  fileName.innerText = file.name;
+} else {
+  status.innerText = 'Not Uploaded';
+  fileName.innerText = '';
+}
+}
+</script>
+{% endblock start %}

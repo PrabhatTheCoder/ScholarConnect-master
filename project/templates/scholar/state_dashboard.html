@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block start %}
+    <h2>Welcome {{request.user}}</h2>
+    <p> Welcome to the Dashboard.</p>
+    <p> You are here it means the authentication worked !!!</p>
+    <a href="{% url 'scholar:state_logout' %}" class="btn btn-primary" >Logout</a>
+
+{% endblock %}

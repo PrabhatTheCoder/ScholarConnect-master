@@ -4,24 +4,25 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager,Group
+from django.contrib.auth import get_user_model
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, aadhaar, password=None, user_type=None, **extra_fields):
-        user = self.model(aadhaar=aadhaar, user_type=user_type, **extra_fields)
+    def create_user(self, username, password=None, user_type=None, **extra_fields):
+        user = self.model(username=username, user_type=user_type, **extra_fields)
         user.set_password(password)
         print(f"Password before save: {user.password}")
         user.save(using=self._db)
         print(f"Password after save: {user.password}")
         return user
 
-    def create_superuser(self, aadhaar, password=None, **extra_fields):
+    def create_superuser(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('user_type', 4)
-        return self.create_user(aadhaar, password, **extra_fields)
+        return self.create_user(username, password, **extra_fields)
 
 class CustomUser(AbstractUser):
-    aadhaar = models.CharField(max_length=12, unique=True)  # Modify the field type and settings as needed
+    # Modify the field type and settings as needed
 
     USERNAME_FIELD = 'username'
     USER_TYPE_CHOICES = (
@@ -74,10 +75,10 @@ class Student(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     
     ## Adhaar Card -- 
-    Adhaar_card = models.CharField(max_length = 255)
+    adhaar = models.CharField(max_length = 255)
     
     ##  -----General Information----
-    domicile = models.CharField(max_length=255)
+    domicile = models.ForeignKey(StateAuthority,on_delete=models.CASCADE,null=True,blank=True,default=None)
     scholar_cat = models.CharField(max_length=255)
     dob = models.DateField(default='2000-01-01')
     gender = models.CharField(max_length=10)
@@ -138,17 +139,21 @@ models.signals.post_migrate.connect(create_groups, sender=models)
 models.signals.post_migrate.disconnect(create_groups, sender=models)
 
 
-@receiver(post_save, sender=CustomUser)
-def create_groups(sender, instance, created, **kwargs):
+User = get_user_model()
+
+@receiver(post_save, sender=Institute)
+def assign_institute_group(sender, instance, created, **kwargs):
     if created:
-        if instance.user_type == 1:  # Student
-            group, _ = Group.objects.get_or_create(name='Student')
-            instance.groups.add(group)
-        elif instance.user_type == 2:  # Institute
-            Institute.objects.create(user=instance)
-            group, _ = Group.objects.get_or_create(name='Institute')
-            instance.groups.add(group)
-        elif instance.user_type == 3:  # StateAuthority
-            StateAuthority.objects.create(user=instance)
-            group, _ = Group.objects.get_or_create(name='StateAuthority')
-            instance.groups.add(group)
+        # Assign the Institute group to the user associated with the Institute instance
+        user = instance.user
+        institute_group, _ = Group.objects.get_or_create(name='Institute')
+        user.groups.add(institute_group)
+
+
+@receiver(post_save, sender=StateAuthority)
+def assign_state_authority_group(sender, instance, created, **kwargs):
+    if created:
+        # Assign the StateAuthority group to the user associated with the StateAuthority instance
+        user = instance.user
+        state_authority_group, _ = Group.objects.get_or_create(name='StateAuthority')
+        user.groups.add(state_authority_group)

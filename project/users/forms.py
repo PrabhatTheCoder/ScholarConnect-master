@@ -10,19 +10,19 @@ class CustomUserForm(forms.ModelForm):
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
     class Meta:
         model = CustomUser
-        fields = ['aadhaar','email', 'password', 'password2','first_name','last_name']
+        fields = ['username','email', 'password', 'password2','first_name','last_name']
         widgets = {
             'password': forms.PasswordInput(),
         }
         labels = {
-            'aadhaar': 'Aadhaar',
+            'username': 'Aadhar',
             'email': 'Email',
             'password': 'Password',
             'first_name': 'First Name',
             'last_name': 'Last Name',
         }
         required = {
-            'aadhaar': True,
+            'username': True,
             'email': True,
             'password': True,
             'password2': True,
