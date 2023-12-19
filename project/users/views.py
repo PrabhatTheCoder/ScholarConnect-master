@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
-from .models import *
+from users.models import *
 # Create your views here.
 
 
@@ -57,9 +57,10 @@ def student_login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             print('working')
-            username = form.cleaned_data.get('username')
+            aadhaar = form.cleaned_data.get('aadhaar')
             password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
+            print(aadhaar,"sfjaisfh", password)
+            user = authenticate(request, username = aadhaar, password=password)
             print('working')
             if user is not None:
                 login(request, user)
@@ -68,14 +69,13 @@ def student_login(request):
                 if user.user_type == 1:
                     print(' a student logged in')
                     return HttpResponseRedirect(reverse('scholar:dashboard'))
-
             else:
-                messages.error(request, 'Invalid username or password.')
+                messages.error(request, 'Invalid Aadhaar or password.')
 
     else:
         form = AuthenticationForm()
 
-    return render(request, 'users/login.html', {'form': form})
+    return render(request, 'users/user_login.html', {'form': form})
 
 
 def student_logout(request):

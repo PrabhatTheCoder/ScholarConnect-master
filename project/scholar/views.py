@@ -1,7 +1,8 @@
 from multiprocessing import AuthenticationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect, reverse
-from scholar.models import Docs
+# from scholar.forms import InstituteForm
+from scholar.models import *
 
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate, login
@@ -15,52 +16,44 @@ from django.contrib import messages
 def home(request):
     return render(request, 'scholar/homepage.html')
 
-            
+
 def institute_login(request):
-    # data = request.POST
-    # if request.method == "POST":
-    #     username = data.get('username')
-    #     password = data.get('password')
+    data = request.POST
+    if request.method == "POST":
+        username = data.get('username')
+        password = data.get('password')
         
-    #     if not User.objects.filter(username = username).exists():
-    #         messages.info(request, "Invalid Username!!")
-    #         return redirect('/login')
+        if not InstituteUser.objects.filter(username = username).exists():
+            messages.info(request, "Invalid Username!!")
+            return redirect('/Institute/login')
         
-    #     user = authenticate(username = username, password = password)
+        user = authenticate(username = username, password = password)
         
-    #     if user is not None:
-    #         login(request, user)
-    #         return redirect('/receipe')
+        if user is not None:
+            login(request, user)
+            return redirect('/institute/dashboard/')
             
-    #     else:
-    #         messages.error(request, 'Invalid Password!!')
-    #         return redirect('/login')
-    # return render(request, 'login.html')
-
-
-    if request.method == 'POST':
-        form = AuthenticationError(request, data=request.POST)
-        if form.is_valid():
-            print('working')
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            print('working')
-            if user is not None:
-                login(request, user)
-                print('login working')
-                print(user.user_type)
-                if user.user_type == 1:
-                    print(' Institute logged in')
-                    return HttpResponseRedirect(reverse('scholar:dashboard'))
-
-            else:
-                messages.error(request, 'Invalid username or password.')
-
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'institute_login.html', {'form': form})
+        else:
+            messages.error(request, 'Invalid Password!!')
+            return redirect('institute/login')
+    return render(request, 'scholar/institute_login.html')
+        
+# def institute_register(request):
+#     args = {}
+#     if request.method == 'POST':
+#         form = InstituteForm(request.POST)     # create form object
+#         if form.is_valid():
+#             clearPassNoHash = form.cleaned_data['password']
+#             form.password = make_password(clearPassNoHash, None, 'md5')
+#             form.save()
+#             form = InstituteForm()
+#             print ('se salvo')
+#         else:
+#             print ('Error en el form')
+#     else:
+#         form = InstituteForm()
+#     args['form'] = form #MyRegistrationForm()
+#     return render(request, 'register/register.html', args)
     
 def institute_logout(request):
     ...

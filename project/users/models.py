@@ -6,21 +6,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager,Group
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, password=None, user_type=None, **extra_fields):
-        user = self.model(username=username, user_type=user_type, **extra_fields)
+    def create_user(self, aadhaar, password=None, user_type=None, **extra_fields):
+        user = self.model(aadhaar=aadhaar, user_type=user_type, **extra_fields)
         user.set_password(password)
         print(f"Password before save: {user.password}")
         user.save(using=self._db)
         print(f"Password after save: {user.password}")
         return user
 
-    def create_superuser(self, username, password=None, **extra_fields):
+    def create_superuser(self, aadhaar, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('user_type', 4)
-        return self.create_user(username, password, **extra_fields)
+        return self.create_user(aadhaar, password, **extra_fields)
 
 class CustomUser(AbstractUser):
+    aadhaar = models.CharField(max_length=12, unique=True)  # Modify the field type and settings as needed
+
     USERNAME_FIELD = 'username'
     USER_TYPE_CHOICES = (
         (1, 'Student'),
@@ -70,6 +72,9 @@ class Institute(models.Model):
     
 class Student(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    
+    ## Adhaar Card -- 
+    Adhaar_card = models.CharField(max_length = 255)
     
     ##  -----General Information----
     domicile = models.CharField(max_length=255)

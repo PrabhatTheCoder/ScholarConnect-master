@@ -4,6 +4,11 @@ from users.models import Student,Institute, StateAuthority
 from django.contrib.auth.models import AbstractUser,BaseUserManager,Group
 
 
+# Inside your app's models.py
+
+from django.contrib.auth.models import AbstractUser
+
+
 class InstituteUser(BaseUserManager):
     def create_user(self, username, password=None, user_type=None, **extra_fields):
         user = self.model(username=username, user_type=user_type, **extra_fields)
@@ -16,7 +21,7 @@ class InstituteUser(BaseUserManager):
     def create_superuser(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('user_type', 4)
+        extra_fields.setdefault('user_type', 2)
         return self.create_user(username, password, **extra_fields)
 
 class Docs(models.Model):

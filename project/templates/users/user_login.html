@@ -1,9 +1,43 @@
 {% extends "base.html" %}
 {% load tailwind_filters %}
 {% block start %}
+{% load static %}
+
+<div id="bar"></div>
+
+<section class="bg-gray-50  bg-gradient-to-t from-green-300 via-transparent to-orange-300">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+     
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      {% if message.tags %}{{ message }}{% endif %}
+    </div> 
+    {% endfor %}
+    {% endif %}
 
 
+<main>
+    <div class="login-box">
+        <div class="box-title">Student Login</div>
+        <form id="loginForm" onsubmit="return validateForm()" method="POST" action="#">
+          {% csrf_token %}
+            <label for="Aadhaar">Aadhaar No:</label>
+            <input type="text" id="aaghaar" name="aadhaar" required>
 
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <p> <a href="reset_password.html">Forgot Password</a> </p>
+    <p>New student? <a href="registration.html">Register here</a></p>
+</main>
+
+
+{% comment %} 
 <section class="bg-gray-50  bg-gradient-to-t from-green-300 via-transparent to-orange-300">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
      
@@ -50,5 +84,5 @@
           </div>
       </div>
   </div>
-</section>
+</section> {% endcomment %}
 {% endblock start %}
