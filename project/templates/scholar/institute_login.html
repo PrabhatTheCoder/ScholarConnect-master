@@ -4,8 +4,64 @@
 {% load static %}
 
 <head>
-  <link rel="stylesheet" href="{% static 'stud_login.css' %}">
-</head>
+  {% comment %} <link rel="stylesheet" href="{% static 'stud_login.css' %}"> {% endcomment %}
+  <style>
+    header {
+        background-color: #2c3e50;
+        color: #ecf0f1;
+        padding: 5px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #rightcorner {
+      margin-left: 50px;
+      margin-top: 16px;
+      height: 150px;
+      width: 150px;
+    }
+    
+    header img {
+        
+        max-width: 125px;
+        height: auto;
+        border: 1px solid black;<style>
+          header {
+              background-color: #2c3e50;
+              color: #ecf0f1;
+              padding: 5px;
+              text-align: center;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+          }
+  
+          #rightcorner {
+            margin-left: 50px;
+            margin-top: 16px;
+            height: 150px;
+            width: 150px;
+          }
+          
+          header img {
+              
+              max-width: 125px;
+              height: auto;
+              border: 1px solid black;
+              border-radius: 10px;
+          }
+  
+          .right-image {
+            
+              margin-right: 50px;
+              max-width: 300px; /* Adjust the size as needed */
+              height: 120px;
+          }
+      </style>
+  </head>
+       
 
 
 <section class="bg-gray-50  bg-gradient-to-t from-green-300 via-transparent to-orange-300">

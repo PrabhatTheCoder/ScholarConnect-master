@@ -4,7 +4,19 @@
 {% load static %}
 
 <head>
-  <link rel="stylesheet" href="{% static 'stud_login.css' %}">
+  {% comment %} <link rel="stylesheet" href="{% static 'stud_login.css' %}"> {% endcomment %}
+  <style>
+    header {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 5px;
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  </style>
 </head>
 
 
@@ -25,7 +37,7 @@
         <div class="box-title">State Login</div>
         <form id="loginForm" onsubmit="return validateForm()" method="POST" action="#">
           {% csrf_token %}
-            <label for="username">State Code</label>
+            <label for="username">State Nodal Officer ID:</label>
             <input type="text" id="username" name="username" required>
 
             <label for="password">Password:</label>

@@ -15,6 +15,16 @@ from django.contrib import messages
 from users.decorators import group_required
 
 
+def update_scholar_application(request,id):
+    # if request.method == "POST":
+    context = {"dc" : "fd"}
+    return render(request,'update_scholar_application.html',context)
+        
+        
+    
+def update_scholar_application2(request,id):
+    ...
+
 def home(request):
     return render(request, 'scholar/homepage.html')
 
@@ -104,7 +114,7 @@ def institute_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('scholar:institute_login'))
     
-    
+# def student
 def institute_dashboard(request):
 
     current_user = request.user
@@ -175,13 +185,14 @@ def Scholar_application(request):
         # fee_receipt = request.FILES.get('fee_receipt')
         # passbook = request.FILES.get('passbook')
         
-        institute_state = data.get('institute_state')
+        # institute_state = data.get('institute_state')
         
         
         applicant_name = data.get('applicant_name')
         father_name = data.get('father_name')
         mother_name = data.get('mother_name')
         gender = data.get('gender')
+        domicile = data.get('domicile')
         annual_income = data.get('annual_income')
         category = data.get('category')
         religion = data.get('religion')
@@ -198,39 +209,46 @@ def Scholar_application(request):
         acc_no = data.get('acc_no')
         ifsc = data.get('ifsc')
         
-        current_student = Student.objects.filter(user=request.user)
+        # current_student = Student.objects.get(user=request.user)
         
-        # student = Student.objects.create(
+         # Retrieve or create a Student object associated with the current user
+        current_student, created = Student.objects.get_or_create(user=request.user)
+        
+        # student = Student.objects.create(user=request.user)
         print('checked')
-        current_student.applicant_name = applicant_name,
+        # current_student.applicant_name = applicant_name,
         current_student.father_name = father_name,
         current_student.mother_name = mother_name,
         current_student.gender = gender,
         current_student.annual_income = annual_income,
-        current_student.category = category,
+        # current_student.category = category,
         current_student.religion = religion,
         current_student.course = course,
-        current_student.enrollment = enrollment,
-        current_student.adm_year = adm_year,
-        current_student.pr_year = pr_year,
-        current_student.mode = mode,
-        current_student.pre_board = pre_board,
-        current_student.prev_class = prev_class,
-        current_student.pass_year = pass_year,
+        # current_student.enrollment = enrollment,
+        # current_student.adm_year = adm_year,
+        # current_student.pr_year = pr_year,
+        # current_student.mode = mode,
+        # current_student.pre_board = pre_board,
+        # current_student.prev_class = prev_class,
+        # current_student.pass_year = pass_year,
         current_student.disabled = disabled,
         current_student.parents_profession = parents_profession,
-        current_student.acc_no = acc_no,
-        current_student.ifsc = ifsc,
+        # current_student.acc_no = acc_no,
+        # current_student.ifsc = ifsc,
+        current_student.domicile = domicile,
+        
+        print(current_student.domicile)
+        print(current_student.domicile,"jfriogjeri;ogj")
         
         
-        # current_student.applicant_photo = applicant_photo,
-        # current_student.domicile_certificate = domicile_certificate,
-        # current_student.income_certficate = income_certficate,
-        # current_student.caste_certificate = caste_certificate,
-        # current_student.aadhar_card = aadhar_card,
-        # current_student.bonafide = bonafide,
-        # current_student.fee_receipt = fee_receipt,
-        # current_student.passbook = passbook,
+        current_student.applicant_photo = applicant_photo
+        current_student.domicile_certificate = domicile_certificate
+        current_student.income_certficate = income_certficate,
+        current_student.caste_certificate = caste_certificate,
+        current_student.aadhar_card = aadhar_card,
+        current_student.bonafide = bonafide,
+        current_student.fee_receipt = fee_receipt,
+        current_student.passbook = passbook,
         
         current_student.save()
         print('saved')
@@ -270,6 +288,9 @@ def Scholar_application2(request):
         
     return render(request,'scholar/scholar_application2.html')
 
+
+def student_view_institute(request):
+    return render(request,'scholar/student_view_in_institute.html')
 #aise hoga ye wrna create se to nya student ka bn jaega The view scholar.views.Scholar_application didn't return an HttpResponse object. It returned None instead.The view scholar.views.Scholar_application didn't return an HttpResponse object. It returned None instead.
 # ok  student login and scholar_application ko integrate kar diya hu css k saath base.html use kiya hu
 #ok great

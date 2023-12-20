@@ -1,9 +1,161 @@
 {% extends 'base.html' %}
 
 {% block start %}
-    <h2>Welcome {{request.user}}</h2>
-    <p> Welcome to the Dashboard.</p>
-    <p> You are here it means the authentication worked !!!</p>
-    <a href="{% url 'scholar:state_logout' %}" class="btn btn-primary" >Logout</a>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            margin-bottom: 50px;
+        }
+
+        #navbar {
+            background-color: #e76b12;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #profile-card {
+            max-width: 400px;
+            margin-top: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #profile-image {
+            width: 100px; /* Adjust the width as needed */
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        #logout-btn {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 2px solid black;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: orange;
+        }
+
+        .column1{
+            float:left;
+            width: 40%;
+        }
+
+        .column2{
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-left: 40px;
+            padding-right: 20px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    </style>
+    <div id="navbar">
+        <h1>Scholar Connect - STATE OFFICER'S DASHBOARD</h1>
+    </div>
+    <div class="row">
+    <div id="profile-card" class="column1">
+        <h2>Welcome! </h2>
+        <h2>State Nodal Officer ID: </h2>
+        <p>{{request.user}}</p>
+        <h2>Domiscile State Code: </h2>
+        <p>2024231</p>
+        <a href="{% url 'scholar:state_logout' %}" class="btn btn-primary" >Logout</a>
+
+
+    </div>
+    <div class="column2">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Application ID</th>
+                    <th>Aadhaar No</th>
+                    <th>Full Name</th>
+                    <th>Mobile</th>
+                    <th>Course Name</th>
+                    <th>Name of Scheme</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    
+        <script>
+            // Generate fake data for the table
+            const fakeData = [
+                { srNo: 1, applicationId: 'XYZ001',enrollmentNo: '0392909789', name: 'John Doe', mobile: '1234567890', courseName: 'Computer Science', schemeName: 'Scholarship A' },
+                { srNo: 2, applicationId: 'XYZ002',enrollmentNo: '0392909789',  name: 'Jane Doe', mobile: '9876543210', courseName: 'Electrical Engineering', schemeName: 'Scholarship B' },
+                { srNo: 3, applicationId: 'XYZ003',enrollmentNo: '0392909789',  name: 'Jane Doee', mobile: '9876543210', courseName: 'Electrical Engineering', schemeName: 'Scholarship c' }
+                // Add more data as needed
+            ];
+    
+            // Function to populate the table with data
+            function populateTable() {
+                const tableBody = document.getElementById('table-body');
+                tableBody.innerHTML = '';
+    
+                fakeData.forEach((data, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${data.applicationId}</td>
+                        <td>${data.enrollmentNo}</td>
+                        <td>${data.name}</td>
+                        
+                        <td>${data.mobile}</td>
+                        <td>${data.courseName}</td>
+                        <td>${data.schemeName}</td>
+                        <td><button onclick="viewDetails(${index})">View</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+    
+            // Function to handle view button click
+            function viewDetails(index) {
+                // Redirect to the details page with the selected individual's data
+                const data = fakeData[index];
+                window.location.href = `details_page.html?name=${data.name}&fatherName=${data.fathersName}&mobile=${data.mobile}`;
+            }
+    
+            // Populate the table on page load
+            populateTable();
+        </script>
+    </div>
+    </div>
+
 
 {% endblock %}
+

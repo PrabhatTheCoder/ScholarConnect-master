@@ -71,7 +71,7 @@ def student_login(request):
         else:
             logout(request)
             messages.error(request, 'Invalid Aadhaar or password.')
-
+ 
     
 
     return render(request, 'users/user_login.html')
