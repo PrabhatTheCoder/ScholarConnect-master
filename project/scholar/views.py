@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 
 
-from users.models import Student,Institute,StateAuthority
+from users.models import Student,Institute,StateAuthority,ScholarCategory
 from scholar.models import Docs
 from django.contrib import messages
 from users.decorators import group_required
@@ -35,34 +35,7 @@ def student_dashboard(request):
 
     return render(request,'scholar/student_dashboard.html')
 
-# def institute_login(request):
-#     data = request.POST
-#     if request.method == "POST":
-#         username = data.get('username')
-#         password = data.get('password')
-        
-#         try:
-#             institute = Institute.objects.get(user__username=username)
-#         except Institute.DoesNotExist:
-#             messages.info(request, "Invalid Username!!")
-#             return HttpResponseRedirect(reverse('scholar:institute_login'))
-        
-#         # Check if the user type is Institute
-#         if institute.user.user_type != 2:  # Assuming 2 is the user_type for Institute
-#             messages.error(request, 'Invalid user type. Please log in as an Institute.')
-#             return HttpResponseRedirect(reverse('scholar:institute_login'))
-        
-#         user = authenticate(username = username, password = password)
-        
-#         if user is not None:
-#             login(request, user)
-#             return HttpResponseRedirect(reverse('scholar:institute_dashboard'))
-            
-#         else:
-#             messages.error(request, 'The user is not registered.')
-#             return HttpResponseRedirect(reverse('scholar:institute_login'))
 
-#     return render(request, 'scholar/institute_login.html')
         
 
 def institute_login(request):
@@ -93,22 +66,7 @@ def institute_login(request):
             return HttpResponseRedirect(reverse('scholar:institute_login'))
 
     return render(request, 'scholar/institute_login.html')
-# def institute_register(request):
-#     args = {}
-#     if request.method == 'POST':
-#         form = InstituteForm(request.POST)     # create form object
-#         if form.is_valid():
-#             clearPassNoHash = form.cleaned_data['password']
-#             form.password = make_password(clearPassNoHash, None, 'md5')
-#             form.save()
-#             form = InstituteForm()
-#             print ('se salvo')
-#         else:
-#             print ('Error en el form')
-#     else:
-#         form = InstituteForm()
-#     args['form'] = form #MyRegistrationForm()
-#     return render(request, 'register/register.html', args)
+
     
 def institute_logout(request):
     logout(request)
@@ -176,85 +134,72 @@ def Scholar_application(request):
         
         data = request.POST
         print(data)
-        # applicant_photo = request.FILES.get('applicant_photo')
-        # domicile_certificate = request.FILES.get('applicant_photo')
-        # income_certficate = request.FILES.get('income_certficate')
-        # caste_certificate = request.FILES.get('caste_certificate')
-        # aadhar_card = request.FILES.get('aadhar_card')
-        # bonafide = request.FILES.get('bonafide')
-        # fee_receipt = request.FILES.get('fee_receipt')
-        # passbook = request.FILES.get('passbook')
-        
-        # institute_state = data.get('institute_state')
-        
-        
-        applicant_name = data.get('applicant_name')
+        scholar_cat = data.get('scholarshipname')
+        aadhaar = data.get('adhaar')
+        dob = data.get('dob')
         father_name = data.get('father_name')
         mother_name = data.get('mother_name')
         gender = data.get('gender')
         domicile = data.get('domicile')
+        phone_number  = data.get('phone_number')
         annual_income = data.get('annual_income')
-        category = data.get('category')
+        category = data.get('annual_income')
         religion = data.get('religion')
-        course = data.get('course')
+        
         enrollment = data.get('enrollment')
         adm_year = data.get('adm_year')
-        pr_year = data.get('pr_year')
-        mode = data.get('mode')
-        pre_board = data.get('pre_board')
-        prev_class = data.get('prev_class')
-        pass_year = data.get('pass_year')
+
+        board_name_12  = data.get('pre_board')
+        marks_12 = data.get('percentage')
+        
+        
         disabled = data.get('disabled')
         parents_profession = data.get('parents_profession')
-        acc_no = data.get('acc_no')
-        ifsc = data.get('ifsc')
+        acc_number = data.get('acc_no')
+        ifsc_num = data.get('ifsc')
         
-        # current_student = Student.objects.get(user=request.user)
+        current_student = Student.objects.get(user=request.user)
+        print(current_student)
         
          # Retrieve or create a Student object associated with the current user
         current_student, created = Student.objects.get_or_create(user=request.user)
         
-        # student = Student.objects.create(user=request.user)
+
         print('checked')
         # current_student.applicant_name = applicant_name,
+        current_student.schol_cat = scholar_cat,
+        current_student.adhaar = aadhaar,
+        current_student.dob = dob,
         current_student.father_name = father_name,
         current_student.mother_name = mother_name,
         current_student.gender = gender,
         current_student.annual_income = annual_income,
-        # current_student.category = category,
+        current_student.category_caste = category,
         current_student.religion = religion,
-        current_student.course = course,
-        # current_student.enrollment = enrollment,
-        # current_student.adm_year = adm_year,
-        # current_student.pr_year = pr_year,
-        # current_student.mode = mode,
-        # current_student.pre_board = pre_board,
-        # current_student.prev_class = prev_class,
-        # current_student.pass_year = pass_year,
+        current_student.phone_number = phone_number
+        current_student.enrollment = enrollment,
+        current_student.admission_year = adm_year,
+    
+        current_student.board_name_12 = board_name_12,
+        current_student.marks_12 = marks_12,
+
         current_student.disabled = disabled,
         current_student.parents_profession = parents_profession,
-        # current_student.acc_no = acc_no,
-        # current_student.ifsc = ifsc,
+        current_student.acc_number = acc_number,
+        current_student.ifsc_num = ifsc_num,
         current_student.domicile = domicile,
         
         print(current_student.domicile)
         print(current_student.domicile,"jfriogjeri;ogj")
         
         
-        current_student.applicant_photo = applicant_photo
-        current_student.domicile_certificate = domicile_certificate
-        current_student.income_certficate = income_certficate,
-        current_student.caste_certificate = caste_certificate,
-        current_student.aadhar_card = aadhar_card,
-        current_student.bonafide = bonafide,
-        current_student.fee_receipt = fee_receipt,
-        current_student.passbook = passbook,
-        
         current_student.save()
         print('saved')
         return HttpResponseRedirect(reverse('scholar:Scholar_application2'))
 
-    return render(request,'scholar/scholar_application.html')
+    details = Student.objects.get(user=request.user)
+    scholar_categories = ScholarCategory.objects.all()
+    return render(request,'scholar/scholar_application.html',{'details':details,'scholars':scholar_categories})
 
 
 

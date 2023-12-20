@@ -68,15 +68,17 @@ class Institute(models.Model):
         return self.institute_name
     
 
+class ScholarCategory(models.Model):
+    category = models.CharField(max_length=255,null=True,blank=True,default='Scholarship for Minorities')
 
     
     
 class Student(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     
+    schol_cat = models.ForeignKey(ScholarCategory,on_delete=models.SET_NULL,null=True,blank=True)
     ## Adhaar Card -- 
     adhaar = models.CharField(max_length = 255)
-    
     ##  -----General Information----
     domicile = models.ForeignKey(StateAuthority,on_delete=models.CASCADE,null=True,blank=True)
     scholar_cat = models.CharField(max_length=255)

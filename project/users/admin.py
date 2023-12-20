@@ -4,7 +4,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import CustomUser, Student, Institute, StateAuthority
-from .models import CustomUser, Student, Institute, StateAuthority
+from .models import CustomUser, Student, Institute, StateAuthority,ScholarCategory
 from scholar.models import Docs
 
 class CustomUserAdmin(BaseUserAdmin):
@@ -61,7 +61,7 @@ admin.site.register(Student, StudentAdmin)
 admin.site.register(Institute, InstituteAdmin)
 admin.site.register(StateAuthority, StateAuthorityAdmin)
 
-
+admin.site.register(ScholarCategory)
 admin.site.register(Docs)
 
 

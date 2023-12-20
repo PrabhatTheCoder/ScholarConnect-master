@@ -55,7 +55,7 @@ def registration_success(request):
 def student_login(request):
     data = request.POST
     if request.method == 'POST':
-        username = data.get('aadhaar')
+        username = data.get('abc_id')
         password = data.get('password')
 
         print(username,"sfjaisfh", password)
@@ -70,7 +70,7 @@ def student_login(request):
                 return HttpResponseRedirect(reverse('scholar:student_dashboard'))
         else:
             logout(request)
-            messages.error(request, 'Invalid Aadhaar or password.')
+            messages.error(request, 'Invalid ABC ID or password.')
  
     
 

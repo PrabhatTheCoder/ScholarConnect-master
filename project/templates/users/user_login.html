@@ -139,8 +139,8 @@
         <div class="box-title">Student Login</div>
         <form id="loginForm" onsubmit="return validateForm()" method="POST" action="#">
           {% csrf_token %}
-            <label for="Aadhaar">Aadhaar No:</label>
-            <input type="text" id="aaghaar" name="aadhaar" required>
+            <label for="Aadhaar">ABC ID</label>
+            <input type="text" id="aadhaar" name="abc_id" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>

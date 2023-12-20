@@ -9,14 +9,14 @@
     <body> {% endcomment %}
         {% csrf_token %}
         <div class="red-bar"></div>
-        <h1 class="header">Scholar Connect - Student Dashboard</h1>
-        <div class="button_con">
-             <a href="{% url 'scholar:Scholar_application' %}" class="btn">Apply</a>
+        <div><h1 style="text-align: center; background-color: orange; color: white;"> Scholar Connect - STUDENT DASHBOARD </h1></div>
+            <div style="margin-right: auto;">
+             <a href="{% url 'scholar:Scholar_application' %}" class="btn btn-success">Apply</a>
+            </div>
+            <div style="margin-left: auto;">
             {% comment %} <a href="{% url 'scholar:scholar_application' %}" class="btn btn-light" style="margin-right">Log Out</a> {% endcomment %}
-
-            <a href="{% url 'users:student_logout' %}" class="btn btn-danger" style="margin-right">Log Out</a>
-        </div>
-        <div style="padding: 25px;">
+            <a href="{% url 'users:student_logout' %}" class="btn btn-danger" style="display: inline-block; text-align: center;">Log Out</a>
+            <div style="padding: 25px;">
             <div style="padding: 10px; background-color: #fff3e6; font-size: .9em;border: 1px solid #dadada;">
                 <div style="padding: 10px;">
                     <form method="POST">
@@ -33,11 +33,12 @@
                                 <span style="color: #00aabb"></span>
                                 </div>
                                 <div style="color:black; margin-top: 5px; font-size: large;">
-                                    <b>Applicant Name: Harshit</b>
+                                    <b>Applicant Name: {{ request.user.first_name  }}
+                                    </b>
                                 <span style="color: #00aabb"></span>
                                 </div>
                                 <div style="color:black; margin-top: 5px; font-size: large;">
-                                    <b>Aadhaar Number: 9910931642</b>
+                                    <b>ABC ID : {{ request.user.username}}</b>
                                 <span style="color: #00aabb"></span>
                                 </div>
                             </td>

@@ -21,9 +21,10 @@
             </select> -->
             <label for="Scholarship Name">Scholarship Name: <span id="required">*</span></label>
             <select id="Scholarship Name" name="scholarshipname">
-              <option value="disabilities">Scholarship for Students with Disabilities </option>
-              <option value="minorities">Scholarship for Minorities</option>
-              <option value="meritorious">Scholarship for Meritorious</option>
+              {% for info in scholars %}
+              <option value="{{ info.category }}">{{info.category}}</option>
+
+              {% endfor %}
             </select>
           </div>
           </fieldset>
@@ -35,8 +36,10 @@
             <legend class="legend_c"><span class="heading"> PERSONAL DETAILS </span></legend>
             <br>
 
-            <label for="applicant_name">Applicant Name:<span id="required">*</span></label>
-            <input type="text" id="input2" name="applicant_name" id="textInput" oninput="handleInput(this)" required />
+            <!--<label for="applicant_name">Applicant Name:<span id="required">*</span></label>
+            <input type="text" id="input2" name="applicant_name" id="textInput" oninput="handleInput(this)" required />-->
+            <label for="adhaar">Aadhaar <span id="required">*</span></label>
+            <input type="number"  name="adhaar" required>
 
             <label for="dob">Date of Birth:<span id="required">*</span></label>
             <input type="date" id="input1" name="dob" required />
@@ -80,6 +83,8 @@
               <option value="Uttar Pradesh">Uttar Pradesh</option>
               <option value="Kerala">Kerala</option>
             </select>
+            <label for="phone_number">Mobile number <span id="required">*</span></label>
+            <input type="number"  name="phone_number" required>
 
             <label for="parents_profession">Parents Profession <span id="required">*</span></label>
             <input type="text"  name="parents_profession" required>
@@ -102,24 +107,25 @@
             <legend class="legend_c"><span class="heading"> INSTITUTE DETAILS </span></legend>
             <br>
 
-            <label for="institute">Institute State:<span id="required">*</span></label>
+            <!--<label for="institute">Institute State:<span id="required">*</span></label>
             <select id="institute" name="institute_state">
-              <!-- <option value="none" selected></option> -->
               <option value="Bihar">Bihar</option>
               <option value="Delhi">Delhi</option>
               <option value="Haryana">Haryana</option>
               <option value="Rajasthan">Rajasthan</option>
               <option value="Uttar Pradesh">Uttar Pradesh</option>
               <option value="Kerala">Kerala</option>
-            </select>
+            </select>-->
 
-            <label for="institute_name">Institute Name:<span id="required">*</span></label>
+          <!--  <label for="institute_name">Institute Name:<span id="required">*</span></label>
             <select id="institute_name" name="institute_name">
-              <option value="option1">Option 1</option>
-            </select>
+              <option value="option1">IPU</option>
+              <option value="option1">AKTU</option>
+            </select> !-->
 
-            <label for="institute_code">Institute Code:<span id="required">*</span></label>
+           <!-- <label for="institute_code">Institute Code:<span id="required">*</span></label>
             <input type="text" id="input" name="institute_code" required />
+            !-->
 
             <label for="enrollment">Enrollment No:<span id="required">*</span></label>
             <input type="text" id="input" name="enrollment" required />
@@ -131,26 +137,26 @@
               <option value="bba">BBA</option>
             </select>
 
-            <label for="mode">Mode of Study:<span id="required">*</span></label>
+            <!--<label for="mode">Mode of Study:<span id="required">*</span></label>
             <select id="select5" name="mode">
               <option value="regular">Regular</option>
               <option value="correspondence">Correspondence</option>
-            </select>
+            </select>-->
 
             <label for="adm_year">Admission Year:<span id="required">*</span></label>
             <input type="number" id="input" name="adm_year" required />
 
                       
-            <label for="pr_year">Present Year:<span id="required">*</span></label>
+            <!--<label for="pr_year">Present Year:<span id="required">*</span></label>
             <select id="select5" name="pr_year">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
-            </select>
+            </select>-->
 
-            <label for="pass_year">Passing Year:<span id="required">*</span></label>
-            <input type="number" name="pass_year" required />
+            <!--<label for="pass_year">Passing Year:<span id="required">*</span></label>
+            <input type="number" name="pass_year" required />-->
 
             <label for="pre_board">Previous Board:<span id="required">*</span></label>
             <select name="pre_board">
@@ -163,11 +169,13 @@
               <option value="up_bd">UP Board</option>
             </select>
 
-            <label for="prev_class">Previous Class:<span id="required">*</span></label>
-            <input type="number" name="prev_class" required />
+            <!--<label for="prev_class">Previous Class:<span id="required">*</span></label>
+            <input type="number" name="prev_class" required />-->
         
             <label for="percentage">Percentage:<span id="required">*</span></label>
-            <input type="number" id="input" name="annual_income" min required />
+            <input type="number" id="input" name="percentage" min required />
+
+            
 
           </div>
           </fieldset>
@@ -200,14 +208,14 @@
           <input type=""  name="" required> -->
           <span class="btn">
 
-<button style="font-size: large;"  onclick="redirectToPage()">Next</button>
-
+<input class="btn btn-primary" style="font-size: large;" type="submit" >Next</input>
+<!-- 
 <script>
   function redirectToPage() {
     // Redirect to a new page
     window.location.href = '/scholar_application2'; // Replace with your desired URL
   }
-</script>
+</script> -->
             <!-- <button type="submit" onclick="window.location.href='/scholar_application2'">Next</button> -->
 
             

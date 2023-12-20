@@ -15,7 +15,7 @@ class CustomUserForm(forms.ModelForm):
             'password': forms.PasswordInput(),
         }
         labels = {
-            'username': 'Aadhar',
+            'username': 'ABC ID',
             'email': 'Email',
             'password': 'Password',
             'first_name': 'First Name',
