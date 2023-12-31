@@ -23,7 +23,8 @@ urlpatterns = [
     path('institute/dashboard/', views.institute_dashboard, name='institute_dashboard'),
     path('institute/login/', views.institute_login, name='institute_login'),
     path('institute/logout/',views.institute_logout, name='institute_logout'),
-    path('institute/student_view_in_institute/',views.student_view_institute, name='student_view_institute'),
+    path('institute/student_details/<int:student_id>/', views.student_details, name='student_details'),
+    path('institute/approve/<int:student_id>',views.approve_at_institute, name='approve_at_institute'),
     
     # State 
     path('state/login/', views.state_login, name='state_login'),

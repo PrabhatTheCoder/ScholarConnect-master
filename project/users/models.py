@@ -71,6 +71,9 @@ class Institute(models.Model):
 class ScholarCategory(models.Model):
     category = models.CharField(max_length=255,null=True,blank=True,default='Scholarship for Minorities')
 
+    def __str__(self):
+        return self.category
+
     
     
 class Student(models.Model):
@@ -81,7 +84,7 @@ class Student(models.Model):
     adhaar = models.CharField(max_length = 255)
     ##  -----General Information----
     domicile = models.ForeignKey(StateAuthority,on_delete=models.CASCADE,null=True,blank=True)
-    scholar_cat = models.CharField(max_length=255)
+    # scholar_cat = models.CharField(max_length=255)
     dob = models.DateField(default='2000-01-01')
     gender = models.CharField(max_length=10)
     religion = models.CharField(max_length=255)

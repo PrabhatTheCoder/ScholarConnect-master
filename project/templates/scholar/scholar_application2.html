@@ -1,6 +1,7 @@
 
 {% extends "base.html" %}
 {% load static %}
+{% load tailwind_filters %}
 {% block start %}
 
 
@@ -12,7 +13,9 @@
     <h1><u>UPLOAD REQUIRED DOCUMENTS</u></h1>
 </div>
 
+<form method="POST" enctype="multipart/form-data">
 
+    {% csrf_token %}
 
 <table>
 <tr>
@@ -28,8 +31,9 @@
 <td>Applicant Photo</td>
 <td id="status1">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)">
-  <button onclick="document.getElementById('fileInput1').click()">Upload</button>
+  {% comment %} <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)">
+  <button onclick="document.getElementById('fileInput1').click()">Upload</button> {% endcomment %}
+  {{form.applicant_photo | as_crispy_field}}
 </td>
 <td id="fileName1"></td>
 </tr>
@@ -39,8 +43,7 @@
 <td>Domicile Certificate</td>
 <td id="status2">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput2" style="display: none;" onchange="uploadFile(2)">
-  <button onclick="document.getElementById('fileInput2').click()">Upload</button>
+  {{form.domicile_certificate | as_crispy_field}}
 </td>
 <td id="fileName2"></td>
 </tr>
@@ -51,8 +54,7 @@
 <td>Income Certificate</td>
 <td id="status2">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput3" style="display: none;" onchange="uploadFile(3)">
-  <button onclick="document.getElementById('fileInput3').click()">Upload</button>
+  {{form.income_certficate | as_crispy_field }}
 </td>
 <td id="fileName3"></td>
 </tr>
@@ -63,8 +65,7 @@
 <td>Caste Certificate</td>
 <td id="status2">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput4" style="display: none;" onchange="uploadFile(2)">
-  <button onclick="document.getElementById('fileInput4').click()">Upload</button>
+  {{form.caste_certificate | as_crispy_field}}
 </td>
 <td id="fileName4"></td>
 </tr>
@@ -75,8 +76,7 @@
 <td>Aadhaar Card</td>
 <td id="status5">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput5" style="display: none;" onchange="uploadFile(5)">
-  <button onclick="document.getElementById('fileInput5').click()">Upload</button>
+  {{form.aadhar_card | as_crispy_field}}
 </td>
 <td id="fileName5"></td>
 </tr>
@@ -87,8 +87,7 @@
 <td>Bonafide Certificate</td>
 <td id="status6">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput6" style="display: none;" onchange="uploadFile(6)">
-  <button onclick="document.getElementById('fileInput6').click()">Upload</button>
+  {{form.bonafide | as_crispy_field}}
 </td>
 <td id="fileName6"></td>
 </tr>
@@ -99,8 +98,7 @@
 <td>Fee Reciept</td>
 <td id="status7">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput7" style="display: none;" onchange="uploadFile(7)">
-  <button onclick="document.getElementById('fileInput7').click()">Upload</button>
+  {{form.fee_receipt | as_crispy_field}}
 </td>
 <td id="fileName7"></td>
 </tr>
@@ -111,30 +109,15 @@
 <td>Passbook</td>
 <td id="status8">Not Uploaded</td>
 <td>
-  <input type="file" id="fileInput8" style="display: none;" onchange="uploadFile(8)">
-  <button onclick="document.getElementById('fileInput8').click()">Upload</button>
+  {{form.passbook | as_crispy_field}}
 </td>
 <td id="fileName8"></td>
 </tr>
 </table>
 
-    <button id="submit">FINAL SUBMIT</button>
+    <input type="submit" value="Final Submit" class="btn btn-primary">
 </div>
 
-<script>
-function uploadFile(row) {
-var input = document.getElementById('fileInput' + row);
-var status = document.getElementById('status' + row);
-var fileName = document.getElementById('fileName' + row);
 
-if (input.files.length > 0) {
-  var file = input.files[0];
-  status.innerText = 'Uploaded';
-  fileName.innerText = file.name;
-} else {
-  status.innerText = 'Not Uploaded';
-  fileName.innerText = '';
-}
-}
-</script>
+</form>
 {% endblock start %}

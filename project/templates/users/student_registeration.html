@@ -23,7 +23,7 @@
     border-radius:40px;
     }
     .header {
-        height: 40px;
+        height: 52px;
         background-color: orange;
         color: white;
         text-align: center;
@@ -138,6 +138,7 @@
              
               {{ user_form.password | as_crispy_field }}
               {{ user_form.password2 | as_crispy_field }}
+              {% comment %} {{}} {% endcomment %}
               <!-- Add other CustomUser fields here -->
             </div>
             
@@ -168,7 +169,7 @@
         <div class="card-form1">
             <div class="form-group" id="passwordForm">
                 <form action="" method="post">
-                    <label for="ABC_ID">ABC ID *</label>
+                    <label for="ABCID">ABC ID *</label>
                     <input type="number" id="aadhar" name="aadhaar" required>
                     
                     <label for="email">Email Id *</label>

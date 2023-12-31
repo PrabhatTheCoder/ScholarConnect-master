@@ -1,8 +1,15 @@
 
 {% extends "base.html" %}
 {% load static %}
+{% load tailwind_filters %}
 {% comment %} {% load static %} {% endcomment %}
 {% block start %}
+<script>
+  function redirectToPage() {
+    // Redirect to a new page
+    window.location.href = '/scholar_application2'; // Replace with your desired URL
+  }
+</script> 
 <head>
     <link rel="stylesheet" href="{% static 'scholar_application.css' %}">
 </head>
@@ -19,13 +26,15 @@
               <option value="Pre-Metric">Pre-Metric</option>
               <option value="Post-Metric">Post-Metric</option>
             </select> -->
-            <label for="Scholarship Name">Scholarship Name: <span id="required">*</span></label>
+            {% comment %} <label for="Scholarship Name">Scholarship Name: <span id="required">*</span></label>
             <select id="Scholarship Name" name="scholarshipname">
               {% for info in scholars %}
-              <option value="{{ info.category }}">{{info.category}}</option>
+              <option value="{{ info.pk }}">{{info.category}}</option>
 
               {% endfor %}
-            </select>
+            </select> {% endcomment %}
+            {{form.schol_cat | as_crispy_field}}
+            
           </div>
           </fieldset>
           <br>
@@ -38,66 +47,23 @@
 
             <!--<label for="applicant_name">Applicant Name:<span id="required">*</span></label>
             <input type="text" id="input2" name="applicant_name" id="textInput" oninput="handleInput(this)" required />-->
-            <label for="adhaar">Aadhaar <span id="required">*</span></label>
-            <input type="number"  name="adhaar" required>
+            <label for='Adhaar'>Aadhaar<span id="required">*</span></label>
+              {{form.adhaar}}
+            {{form.dob | as_crispy_field}}
+            {% comment %} {{form.adhaar}} {% endcomment %}
 
-            <label for="dob">Date of Birth:<span id="required">*</span></label>
-            <input type="date" id="input1" name="dob" required />
-
-            <label for="father_name">Father Name:<span id="required">*</span></label>
-            <input type="text" id="input2" name="father_name" id="textInput" oninput="handleInput(this)" required />
-
-            <label for="Mother Name">Mother Name:<span id="required">*</span></label>
-            <input type="text" id="input3" name="mother_name" id="textInput" oninput="handleInput(this)" required />
-
-            <label for="gender">Gender:<span id="required">*</span></label>
-            <select id="gender" name="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-      
-            <label for="category">Category:<span id="required">*</span></label>
-            <select id="category" name="category">
-              <option value="general">General</option>
-              <option value="obc">OBC</option>
-              <option value="sc">SC</option>
-              <option value="st">ST</option>
-            </select>
-          
-            <label for="religion">Religion:<span id="required">*</span></label>
-            <select id="religion" name="religion">
-              <option value="Hindu">Hindu</option>
-              <option value="Muslim">Muslim</option>
-              <option value="Christian">Christian</option>
-              <option value="Sikh">Sikh</option>
-            </select>
-
-            <label for="Domicile">Domicile State:<span id="required">*</span></label>
-            <select id="Domicile" name="domicile" onchange="updateInstituteOptions()">
-              <!-- <option value="none" selected></option> -->
-              <option value="Bihar">Bihar</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Haryana">Haryana</option>
-              <option value="Rajasthan">Rajasthan</option>
-              <option value="Uttar Pradesh">Uttar Pradesh</option>
-              <option value="Kerala">Kerala</option>
-            </select>
-            <label for="phone_number">Mobile number <span id="required">*</span></label>
-            <input type="number"  name="phone_number" required>
-
-            <label for="parents_profession">Parents Profession <span id="required">*</span></label>
-            <input type="text"  name="parents_profession" required>
-
-            <label for="annual_income">Annual Income:<span id="required">*</span></label>
-            <input type="number" id="input" name="annual_income" required />
-
-            <label for="disabled">Disabled:<span id="required">*</span></label>
-            <select id="disabled" name="disabled">
-              <option value="no">NO</option>
-              <option value="yes">YES</option>
-            </select>
-          
+            {{form.father_name | as_crispy_field}}
+            {{form.mother_name | as_crispy_field }}
+            {{form.gender | as_crispy_field}}
+            {{form.category_caste | as_crispy_field}}
+            {{form.religion | as_crispy_field}}
+            {{form.domicile | as_crispy_field}}
+            {{form.phone_number | as_crispy_field}}
+            {{form.parents_profession | as_crispy_field}}
+            {{form.annual_income | as_crispy_field}}
+            {{form.disabled | as_crispy_field}}
+           
+            
           </div>
           </fieldset>
           <br>
@@ -107,7 +73,8 @@
             <legend class="legend_c"><span class="heading"> INSTITUTE DETAILS </span></legend>
             <br>
 
-            <!--<label for="institute">Institute State:<span id="required">*</span></label>
+            {% comment %} <label for="institute">Institute State:<span id="required">*</span></label> {% endcomment %}
+              <!--
             <select id="institute" name="institute_state">
               <option value="Bihar">Bihar</option>
               <option value="Delhi">Delhi</option>
@@ -126,25 +93,20 @@
            <!-- <label for="institute_code">Institute Code:<span id="required">*</span></label>
             <input type="text" id="input" name="institute_code" required />
             !-->
+            <label for='enrollment_no'>Enrollment Number:<span id="required">*</span></label>
+            {{form.enrollment_no}}
 
-            <label for="enrollment">Enrollment No:<span id="required">*</span></label>
-            <input type="text" id="input" name="enrollment" required />
-
-            <label for="course">Course:<span id="required">*</span></label>
-            <select id="course" name="course">
-              <option value="bca">BCA</option>
-              <option value="b.tech">B.Tech</option>
-              <option value="bba">BBA</option>
-            </select>
+            <label for='Course'>Course:<span id="required">*</span></label>
+            {{form.course}}
 
             <!--<label for="mode">Mode of Study:<span id="required">*</span></label>
             <select id="select5" name="mode">
               <option value="regular">Regular</option>
               <option value="correspondence">Correspondence</option>
             </select>-->
-
-            <label for="adm_year">Admission Year:<span id="required">*</span></label>
-            <input type="number" id="input" name="adm_year" required />
+            <label for='admission_year'>Admission Year:<span id="required">*</span></label>
+            {{form.admission_year}}
+           
 
                       
             <!--<label for="pr_year">Present Year:<span id="required">*</span></label>
@@ -157,23 +119,18 @@
 
             <!--<label for="pass_year">Passing Year:<span id="required">*</span></label>
             <input type="number" name="pass_year" required />-->
+              <label for='Board Name'>Board Name<span id="required">*</span></label>
+              
+            {{form.board_name_12}}
 
-            <label for="pre_board">Previous Board:<span id="required">*</span></label>
-            <select name="pre_board">
-              <option value="cbse">CBSE</option>
-              <option value="icse">ICSE</option>
-              <option value="bihar_bd">Bihar Board</option>
-              <option value="delhi_bd">Delhi Board</option>
-              <option value="haryana_bd">Haryana Board</option>
-              <option value="rajasthan_bd">Rajasthan Board</option>
-              <option value="up_bd">UP Board</option>
-            </select>
+            <label for='roll_12'>Roll Number<span id="required">*</span></label>
+            {{form.roll_12}}
 
             <!--<label for="prev_class">Previous Class:<span id="required">*</span></label>
             <input type="number" name="prev_class" required />-->
-        
-            <label for="percentage">Percentage:<span id="required">*</span></label>
-            <input type="number" id="input" name="percentage" min required />
+
+            <label for='marks_12'>Marks Obtained<span id="required">*</span></label>
+              {{form.marks_12}}
 
             
 
@@ -185,11 +142,13 @@
           <div class="container">
             <legend class="legend_c"><span class="heading"> BANK DETAILS </span></legend>
             <br>      
-            <label for="acc_no">Bank Account number: <span id="required">*</span></label>
-            <input type="number"  name="acc_no" required> 
-        
-            <label for="ifsc">IFSC Code: <span id="required">*</span></label>
-            <input type="text"  name="ifsc" required> 
+
+            <label for='acc_number'>Account Number<span id="required">*</span></label>
+  
+            {{form.acc_number}}
+
+            <label for='ifsc_num'>IFSC Number<span id="required">*</span></label>
+            {{form.ifsc_num}}
 
           </div>
           </fieldset>
@@ -208,15 +167,9 @@
           <input type=""  name="" required> -->
           <span class="btn">
 
-<input class="btn btn-primary" style="font-size: large;" type="submit" >Next</input>
-<!-- 
-<script>
-  function redirectToPage() {
-    // Redirect to a new page
-    window.location.href = '/scholar_application2'; // Replace with your desired URL
-  }
-</script> -->
-            <!-- <button type="submit" onclick="window.location.href='/scholar_application2'">Next</button> -->
+{% comment %} <input class="btn btn-primary" style="font-size: large;" type="submit" ></input> {% endcomment %}
+<button type="submit" onclick="redirectToPage()">Next</button>
+
 
             
           </span>

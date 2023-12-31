@@ -97,7 +97,7 @@
                 <thead>
                     <tr>
                         <th>Sr No.</th>
-                        <th>Application ID</th>
+                        <th>ABC ID</th>
                         <th>Aadhaar No</th>
                         <th>Full Name</th>
                         <th>Mobile</th>
@@ -107,37 +107,21 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
+
                     <!-- Data will be dynamically inserted here -->
+                    {% for  student in queryset %}
                     <tr>
-                        <td>1</td>
-                        <td>XYZ001</td>
-                        <td>0392909789</td>
-                        <td>John Doe</td>
-                        <td>1234567890</td>
-                        <td>Computer Science</td>
-                        <td>Scholarship A</td>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{request.user}}</td>
+                        <td>{{request.user}}</td>
+                        <td>{{request.user}}</td>
+                        <td>{{request.user}}</td>
+                        <td>{{request.user}}</td>
+                        <td>{{request.user}}</td>
                         <td><button onclick="viewDetails(0)">View</button></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>XYZ002</td>
-                        <td>0392909789</td>
-                        <td>Jane Doe</td>
-                        <td>9876543210</td>
-                        <td>Electrical Engineering</td>
-                        <td>Scholarship B</td>
-                        <td><button onclick="viewDetails(1)">View</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>XYZ003</td>
-                        <td>0392909789</td>
-                        <td>Jane Doee</td>
-                        <td>9876543210</td>
-                        <td>Electrical Engineering</td>
-                        <td>Scholarship C</td>
-                        <td><button onclick="viewDetails(2)">View</button></td>
-                    </tr>
+                    {% endfor %}  
+                    
                 </tbody>
             </table>
         </div>
@@ -153,6 +137,4 @@
             const data = fakeData[index];
             window.location.href = `details_page.html?name=${data.name}&fatherName=${data.fathersName}&mobile=${data.mobile}`;
         } {% endcomment %}
-    </script>
-
     {% endblock start %}

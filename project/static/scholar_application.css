@@ -13,7 +13,7 @@ header {body {
 }
 
 header {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding: 10px;
   display: flex;
   justify-content: space-between;
